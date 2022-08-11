@@ -101,9 +101,14 @@ jobs:
       run: |
         echo -e "$(nproc) thread build."
         make -j$(nproc) V=s
-        
+    
+    - name: Prepare artifact
+      run: |
+         mkdir -p ./artifact/package
+         cp -rf ./openwrt/bin ./artifact/package
+    
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
         name: OpenWrt
-        path: openwrt/bin
+        path: ./artifact/package
